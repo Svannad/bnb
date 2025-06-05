@@ -1,4 +1,4 @@
-import { data, Form, redirect, useActionData } from "react-router";
+import { data, Form, Link, redirect, useActionData } from "react-router";
 import type { Route } from "../+types/root";
 import User from "~/models/User";
 import { useEffect } from "react";
@@ -49,7 +49,7 @@ export default function SignUp() {
 
   return (
     <div id="sign-in-page" className="page">
-      <h1>Sign In</h1>
+      <h1>Sign Up</h1>
       <Form id="sign-in-form" method="post">
         <label htmlFor="name">Name</label>
         <input
@@ -80,7 +80,7 @@ export default function SignUp() {
           autoComplete="current-password"
         />
         <div className="btns">
-          <button>Sign In</button>
+          <button>Sign Up</button>
         </div>
         {actionData?.error && (
           <div className="mt-4 text-red-800 text-left">
@@ -88,6 +88,10 @@ export default function SignUp() {
           </div>
         )}
       </Form>
+      <div className="flex flex-row text-[#48302D]">
+            <p className="mr-1">Already have a user?</p>
+            <Link to="/signin" className="hover:text-green-700">Log in here.</Link>
+          </div>
     </div>
   );
 }

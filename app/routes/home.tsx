@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Route } from "./+types/home";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "BNB" }];
@@ -8,6 +9,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   const today = new Date().toISOString().split("T")[0];
   const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   return (
     <>
@@ -35,9 +37,17 @@ export default function Home() {
             type="date"
             name="end"
             min={startDate || today}
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
           />
         </label>
       </section>
+      <Link
+        to={`/booking?start=${startDate}&end=${endDate}`}
+        className="mt-4 inline-block text-blue-500 underline"
+      >
+        Check Dates
+      </Link>
     </>
   );
 }

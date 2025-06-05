@@ -12,6 +12,8 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import Navigation from "./components/navigation";
 import { sessionStorage } from "~/services/session.server";
+import AdminNav from "./components/adminNav";
+import User from "./models/User";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -27,12 +29,18 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const session = await sessionStorage.getSession(
-    request.headers.get("cookie")
-  );
+  const session = await sessionStorage.getSession(request.headers.get("cookie"));
   const authUserId = session.get("authUserId");
 
-  return data({ authUserId });
+  if (!authUserId) {
+    // No logged-in user
+    return data({ authUserId: null, role: null });
+  }
+
+  // Fetch user to get role
+  const user = await User.findById(authUserId).lean();
+
+  return data({ authUserId, role: user?.role ?? null }); // or user?.type or user?.isGuest depending on your schema
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -55,15 +63,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 
 export default function App({ loaderData }: Route.ComponentProps) {
-  console.log(loaderData); // Debugging: Check if authUserId is retrieved
+  const role = loaderData?.role;
 
   return (
     <>
-      {loaderData?.authUserId ? <Navigation /> : null}
+      {role === "guest" && <Navigation />}
+      {role === "host" && <AdminNav />}
       <Outlet />
     </>
   );
 }
+
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";

@@ -1,4 +1,4 @@
-import { data, Form, redirect, useActionData } from "react-router";
+import { data, Form, Link, redirect, useActionData } from "react-router";
 import { authenticator } from "~/services/auth.server";
 import type { Route } from "../+types/root";
 import { commitSession, getSession } from "~/services/session.server"; // adjust path to your file
@@ -56,6 +56,12 @@ export default function SignIn() {
           </div>
         )}
       </Form>
+      <div className="flex flex-row text-[#48302D]">
+            <p className="mr-1">Don't have a user?</p>
+            <Link to="/signup" className="hover:text-green-700">
+              Sign up here.
+            </Link>
+          </div>
     </div>
   );
 }
