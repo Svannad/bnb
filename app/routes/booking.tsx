@@ -38,6 +38,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return { rooms, start, end, user };
 }
 
+import { useState } from "react";
+
 export default function BookingPage({ actionData }: Route.ComponentProps) {
   const navigate = useNavigate();
   const { rooms, start, end, user } = useLoaderData() as {
@@ -47,17 +49,17 @@ export default function BookingPage({ actionData }: Route.ComponentProps) {
     user: { _id: string; name: string };
   };
 
+  const [bringingCar, setBringingCar] = useState("no"); // default to "yes"
+  const errors = actionData?.errors || {};
+
   function handleCancel() {
     navigate(-1);
   }
-
-  const errors = actionData?.errors || {};
 
   return (
     <>
       <h1 className="text-3xl font-bold underline text-red-500">Booking</h1>
 
-      {/* Display selected dates */}
       {start && end && (
         <p className="mb-4 text-[#48302D]">
           Selected dates: <strong>{start}</strong> to <strong>{end}</strong>
@@ -75,23 +77,59 @@ export default function BookingPage({ actionData }: Route.ComponentProps) {
       ))}
 
       <Form method="post" className="space-y-4 w-full">
-        {/* Hidden inputs for dates */}
         <input type="hidden" name="start" value={start ?? ""} />
         <input type="hidden" name="end" value={end ?? ""} />
 
-        <div className="flex justify-between items-start flex-col w-full">
-          <label className="block text-sm text-[#48302D]">Plate Number</label>
-          <input
-            type="text"
-            name="plateNumber"
-            className={`mt-1 block w-full px-3 py-2 border rounded-md mb-6 text-[#48302D] ${
-              errors.name ? "border-red-500" : "border-[#48302D]"
-            }`}
-          />
-          {errors.name && (
-            <span className="text-sm text-red-500">{errors.name.message}</span>
-          )}
+        {/* Bringing a car? */}
+        <div className="mb-4">
+          <label className="block text-sm text-[#48302D] mb-2">
+            Are you bringing a car?
+          </label>
+          <div className="flex gap-4">
+             <label>
+              <input
+                type="radio"
+                name="carOption"
+                value="no"
+                checked={bringingCar === "no"}
+                onChange={() => setBringingCar("no")}
+              />{" "}
+              No
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="carOption"
+                value="yes"
+                checked={bringingCar === "yes"}
+                onChange={() => setBringingCar("yes")}
+              />{" "}
+              Yes
+            </label>
+          </div>
         </div>
+
+        {/* Plate Number Input */}
+        {bringingCar === "yes" ? (
+          <div className="flex flex-col w-full">
+            <label className="text-sm text-[#48302D]">Plate Number</label>
+            <input
+              type="text"
+              name="plateNumber"
+              className={`mt-1 block w-full px-3 py-2 border rounded-md mb-6 text-[#48302D] ${
+                errors.plateNumber ? "border-red-500" : "border-[#48302D]"
+              }`}
+            />
+            {errors.plateNumber && (
+              <span className="text-sm text-red-500">
+                {errors.plateNumber.message}
+              </span>
+            )}
+          </div>
+        ) : (
+          <input type="hidden" name="plateNumber" value="No car" />
+        )}
+
         <button
           type="submit"
           className="w-full py-2 px-4 bg-[#48302D] text-[#F4F2F0] rounded-md cursor-pointer hover:opacity-80"
@@ -109,6 +147,7 @@ export default function BookingPage({ actionData }: Route.ComponentProps) {
     </>
   );
 }
+
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();

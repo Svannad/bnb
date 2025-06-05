@@ -11,5 +11,6 @@ export default [
   route("booking", "routes/booking.tsx"),
   route("confirm", "routes/confirm.tsx"),
   route("profile", "routes/profile.tsx"),
+  route("profile/update", "routes/profileEdit.tsx"),
   route("dashboard", "routes/dashboard.tsx")
 ] satisfies RouteConfig;

@@ -33,7 +33,7 @@ export async function action({ request }) {
     request.headers.get("cookie")
   );
   // Destroy the session and redirect to the signin page
-  return redirect("/signin", {
+  return redirect("/", {
     headers: { "Set-Cookie": await sessionStorage.destroySession(session) },
   });
 }
@@ -52,7 +52,9 @@ export default function Profile() {
           <h1 className="font-serif text-2xl font-medium text-left text-[#48302D]">
             My Profile
           </h1>
-          <Link to="/profile/update"></Link>
+           <Link to="/profile/update">
+            edit profile
+          </Link>
         </div>
 
         <div>

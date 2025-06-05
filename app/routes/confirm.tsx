@@ -63,7 +63,7 @@ export default function Confirm() {
         <strong>Plate Number:</strong> {booking.plateNumber ?? "None"}
       </p>
 
-      <Link to="/">Back to Home</Link>
+      <Link to="/profile">see booking</Link>
     </>
   );
 }

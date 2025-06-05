@@ -10,6 +10,7 @@ export async function action({ request }: Route.ActionArgs) {
     const name = formData.get("name");
     const mail = formData.get("mail");
     const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
 
     if (!name || typeof name !== "string" || !name.trim()) {
       return data({ error: "Name is required" }, { status: 400 });
@@ -23,11 +24,13 @@ export async function action({ request }: Route.ActionArgs) {
         { status: 400 }
       );
     }
+    if (password !== confirmPassword) {
+      return data({ error: "Passwords do not match" }, { status: 400 });
+    }
 
     const newUser = { name, mail, password };
-    const result = await User.create(newUser);
+    await User.create(newUser);
 
-    // Success: Redirect to the login page with a success message in the query params
     return redirect("/signin?success=true");
   } catch (error) {
     if (error instanceof Error) {
@@ -56,16 +59,15 @@ export default function SignUp() {
           id="name"
           type="text"
           name="name"
-          aria-label="namel"
           placeholder="Type your name..."
           required
         />
+
         <label htmlFor="mail">Mail</label>
         <input
           id="mail"
           type="email"
           name="mail"
-          aria-label="mail"
           placeholder="Type your mail..."
           required
         />
@@ -75,23 +77,38 @@ export default function SignUp() {
           id="password"
           type="password"
           name="password"
-          aria-label="password"
           placeholder="Type your password..."
-          autoComplete="current-password"
+          autoComplete="new-password"
+          required
         />
+
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          placeholder="Repeat your password..."
+          autoComplete="new-password"
+          required
+        />
+
         <div className="btns">
           <button>Sign Up</button>
         </div>
+
         {actionData?.error && (
           <div className="mt-4 text-red-800 text-left">
             <p>{actionData.error}</p>
           </div>
         )}
       </Form>
+
       <div className="flex flex-row text-[#48302D]">
-            <p className="mr-1">Already have a user?</p>
-            <Link to="/signin" className="hover:text-green-700">Log in here.</Link>
-          </div>
+        <p className="mr-1">Already have a user?</p>
+        <Link to="/signin" className="hover:text-green-700">
+          Log in here.
+        </Link>
+      </div>
     </div>
   );
 }
