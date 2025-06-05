@@ -1,4 +1,5 @@
 import {
+  data,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -9,6 +10,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Navigation from "./components/navigation";
+import { sessionStorage } from "~/services/session.server";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,6 +25,15 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const session = await sessionStorage.getSession(
+    request.headers.get("cookie")
+  );
+  const authUserId = session.get("authUserId");
+
+  return data({ authUserId });
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -41,8 +53,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
-  return <Outlet />;
+
+export default function App({ loaderData }: Route.ComponentProps) {
+  console.log(loaderData); // Debugging: Check if authUserId is retrieved
+
+  return (
+    <>
+      {loaderData?.authUserId ? <Navigation /> : null}
+      <Outlet />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
