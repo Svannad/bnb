@@ -1,19 +1,19 @@
 import { useState } from "react";
 import type { Route } from "./+types/home";
 import { Link, useNavigate } from "react-router";
-
-// home.tsx or home.jsx
 import { redirect, useLoaderData, type LoaderFunctionArgs } from "react-router";
 import Booking from "~/models/Booking";
 import { sessionStorage } from "~/services/session.server";
+import Unavailable from "~/models/Unavailable";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await sessionStorage.getSession(request.headers.get("Cookie"));
   const authUserId = session.get("authUserId");
 
   const bookings = await Booking.find({}).sort({ startDate: 1 }).lean();
+  const unavailables = await Unavailable.find({}).lean(); // ← get unavailable periods
 
-  return { bookings, authUserId }; // ← include auth info
+  return { bookings, unavailables, authUserId };
 }
 
 
@@ -34,35 +34,41 @@ export default function Home() {
   const [notAvailable, setNotAvailable] = useState(false);
   const navigate = useNavigate();
 
-  const { bookings, authUserId } = useLoaderData() as {
-    bookings: Booking[];
-    authUserId: string | null;
-  };
+  const { bookings, unavailables, authUserId } = useLoaderData() as {
+  bookings: Booking[];
+  unavailables: { startDate: string; endDate: string }[];
+  authUserId: string | null;
+};
 
-  function checkAvailability() {
-    if (!startDate || !endDate) return;
 
-    const requestedStart = new Date(startDate);
-    const requestedEnd = new Date(endDate);
+function checkAvailability() {
+  if (!startDate || !endDate) return;
 
-    const overlap = bookings.some((booking) => {
-      const existingStart = new Date(booking.startDate);
-      const existingEnd = new Date(booking.endDate);
+  const requestedStart = new Date(startDate);
+  const requestedEnd = new Date(endDate);
 
-      return requestedStart <= existingEnd && existingStart <= requestedEnd;
+  const overlaps = (ranges: { startDate: string; endDate: string }[]) =>
+    ranges.some(({ startDate, endDate }) => {
+      const rangeStart = new Date(startDate);
+      const rangeEnd = new Date(endDate);
+      return requestedStart <= rangeEnd && rangeStart <= requestedEnd;
     });
 
-    if (overlap) {
-      setNotAvailable(true);
+  const bookingOverlap = overlaps(bookings);
+  const unavailableOverlap = overlaps(unavailables);
+
+  if (bookingOverlap || unavailableOverlap) {
+    setNotAvailable(true);
+  } else {
+    setNotAvailable(false);
+    if (!authUserId) {
+      navigate("/signin");
     } else {
-      setNotAvailable(false);
-      if (!authUserId) {
-        navigate("/signin");
-      } else {
-        navigate(`/booking?start=${startDate}&end=${endDate}`);
-      }
+      navigate(`/booking?start=${startDate}&end=${endDate}`);
     }
   }
+}
+
 
   return (
     <>

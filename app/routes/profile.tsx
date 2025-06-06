@@ -1,9 +1,9 @@
 import { Form, Link, redirect, useLoaderData } from "react-router";
 import type { Route } from "./+types/home";
-import { getSession, sessionStorage } from "~/services/session.server"; 
+import { getSession, sessionStorage } from "~/services/session.server";
 import User from "~/models/User";
-import Booking from "~/models/Booking";  // Import your Booking model
-import type { UserType } from "~/models/User"; 
+import Booking from "~/models/Booking"; // Import your Booking model
+import type { UserType } from "~/models/User";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "BNB" }];
@@ -19,12 +19,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const user = await User.findById(authUserId).lean();
 
-  // Fetch bookings made by the user, sorted by startDate ascending
   const bookings = await Booking.find({ user: authUserId })
     .sort({ startDate: 1 })
     .lean();
 
-  return { user, bookings };
+    return { bookings: JSON.parse(JSON.stringify(bookings)), user };
 }
 
 export async function action({ request }) {
@@ -39,7 +38,10 @@ export async function action({ request }) {
 }
 
 export default function Profile() {
-  const { user, bookings } = useLoaderData() as { user: UserType; bookings: any[] };
+  const { user, bookings } = useLoaderData() as {
+    user: UserType;
+    bookings: any[];
+  };
 
   return (
     <>
@@ -52,9 +54,7 @@ export default function Profile() {
           <h1 className="font-serif text-2xl font-medium text-left text-[#48302D]">
             My Profile
           </h1>
-           <Link to="/profile/update">
-            edit profile
-          </Link>
+          <Link to="/profile/update">edit profile</Link>
         </div>
 
         <div>
@@ -70,18 +70,30 @@ export default function Profile() {
         ) : (
           <ul className="space-y-4 text-[#48302D]">
             {bookings.map((booking) => (
-              <li key={booking._id} className="border border-[#48302D] rounded p-4">
-                <p>
-                  <strong>Start Date:</strong>{" "}
-                  {new Date(booking.startDate).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>End Date:</strong>{" "}
-                  {new Date(booking.endDate).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>Plate Number:</strong> {booking.plateNumber ?? "None"}
-                </p>
+              <li
+                key={booking._id}
+                className="border border-[#48302D] rounded p-4 hover:bg-[#f8f5f3] transition"
+              >
+                <Link
+                  to={`/booking/${booking._id}/update`}
+                  className="block text-left"
+                >
+                  <p>
+                    <strong>Start Date:</strong>{" "}
+                    {new Date(booking.startDate).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>End Date:</strong>{" "}
+                    {new Date(booking.endDate).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Plate Number:</strong>{" "}
+                    {booking.plateNumber ?? "None"}
+                  </p>
+                  <p className="text-sm underline text-[#48302D] mt-2">
+                    Edit booking
+                  </p>
+                </Link>
               </li>
             ))}
           </ul>

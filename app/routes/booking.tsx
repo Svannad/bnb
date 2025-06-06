@@ -49,7 +49,7 @@ export default function BookingPage({ actionData }: Route.ComponentProps) {
     user: { _id: string; name: string };
   };
 
-  const [bringingCar, setBringingCar] = useState("no"); // default to "yes"
+  const [bringingCar, setBringingCar] = useState("no");
   const errors = actionData?.errors || {};
 
   function handleCancel() {
