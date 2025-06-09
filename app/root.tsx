@@ -67,7 +67,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
   const role = loaderData?.role;
 
   return (
-    <div className="bg-[#f4ebdf] min-h-[1000vh]">
+    <div className="bg-[#f4ebdf] min-h-[100vh]">
       {role === "guest" && <Navigation />}
       {role === "host" && <AdminNav />}
       {role === null && <DefaultNav />}
