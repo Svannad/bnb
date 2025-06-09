@@ -43,8 +43,10 @@ export default function DefaultNav() {
         </NavLink>
       </figure>
 
-      <nav className="flex gap-6 items-center text-[#f4ebdf] text-lg">
-        <NavLink to="/signin">Sign In</NavLink>
+      <nav className="flex gap-6 items-center text-[#f4ebdf] text-lg font-light">
+        <NavLink to="/signin" className="hover:text-[#758d7e]">
+          Sign In
+        </NavLink>
       </nav>
     </header>
   );

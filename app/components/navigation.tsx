@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { GiLaurelCrown } from "react-icons/gi";
+import { IoPersonCircleOutline } from "react-icons/io5";
 import { NavLink, useLocation } from "react-router";
 
 export default function Navigation() {
@@ -43,8 +44,22 @@ export default function Navigation() {
         </NavLink>
       </figure>
 
-      <nav className="flex gap-6 items-center text-[#f4ebdf] text-lg">
-        <NavLink to="/profile">Profile</NavLink>
+      <nav className="flex gap-8 items-center text-[#f4ebdf] text-lg font-light transition-colors duration-600">
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          Services
+        </NavLink>
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          Events
+        </NavLink>
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          Rest
+        </NavLink>
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          About
+        </NavLink>
+        <NavLink to="/profile">
+          <IoPersonCircleOutline className="scale-170 hover:text-[#758d7e]" />
+        </NavLink>
       </nav>
     </header>
   );

@@ -88,11 +88,10 @@ export default function Home() {
           alt="Hero background"
           className="absolute inset-0 w-full h-[100vh] object-cover z-0"
         />
-        <div className="absolute bottom-45 left-17 text-[#f4ebdf] ">
-          <h1 className="text-5xl">Lorem, ipsum.</h1>
-          <p className="text-2xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa,
-            nostrum.
+        <div className="absolute bottom-30 left-17 text-[#f4ebdf] ">
+          <h1 className="text-6xl">Jonas's Bed n' Breafast</h1>
+          <p className="text-3xl">
+            Et lille stykke Sydfyn i det jyske
           </p>
         </div>
         <div className="relative z-20 bg-[#f4ebdf] p-6 text-[#22392c] max-w-sm w-full flex flex-col items-center justify-between h-100">
