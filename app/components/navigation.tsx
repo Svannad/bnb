@@ -1,22 +1,33 @@
 import { useEffect, useState } from "react";
 import { GiLaurelCrown } from "react-icons/gi";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 
 export default function Navigation() {
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 10);
-    }
+    // Only attach scroll listener on home page
+    if (location.pathname === "/") {
+      function handleScroll() {
+        setScrolled(window.scrollY > 10);
+      }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      window.addEventListener("scroll", handleScroll);
+
+      // Check scroll on mount in case page loads scrolled
+      handleScroll();
+
+      return () => window.removeEventListener("scroll", handleScroll);
+    } else {
+      // For other pages, always show scrolled style
+      setScrolled(true);
+    }
+  }, [location.pathname]);
 
   return (
     <header
-      className={`sticky top-0 w-full z-50 transition-colors duration-300 flex justify-between items-center p-6 pr-8 mx-auto ${
+      className={`sticky top-0 w-full z-50 transition-colors duration-600 flex justify-between items-center p-6 pr-8 mx-auto ${
         scrolled
           ? "bg-[#22392c] text-[#f4ebdf]"
           : "bg-transparent text-[#22392c]"
@@ -25,17 +36,15 @@ export default function Navigation() {
       <figure>
         <NavLink to="/">
           <GiLaurelCrown
-            className={`transition-transform duration-300 ease-in-out origin-left ${
-              scrolled ? "scale-300" : "scale-500 mt-2"
+            className={`transition-transform duration-600 ease-in-out origin-left ${
+              scrolled ? "scale-300" : "scale-800 mt-6"
             }`}
           />
         </NavLink>
       </figure>
 
-      <nav className="flex gap-6 items-center">
-        <NavLink to="/profile">
-          Profile
-        </NavLink>
+      <nav className="flex gap-6 items-center text-[#f4ebdf] text-lg">
+        <NavLink to="/profile">Profile</NavLink>
       </nav>
     </header>
   );

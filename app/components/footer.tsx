@@ -13,7 +13,7 @@ export default function Footer() {
           </div>
           <div className="flex w-120 justify-between">
             <div>
-              <h3 className="font-semibold text-lg mb-3 tracking-wider">
+              <h3 className="font-semibold text-2xl mb-3 tracking-wider">
                 Explore
               </h3>
               <ul className="space-y-2 text-sm">
@@ -40,7 +40,7 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-3 tracking-wider">
+              <h3 className="font-semibold text-2xl mb-3 tracking-wider">
                 Contact
               </h3>
               <ul className="space-y-2 text-sm text-[#d6c9b3]">

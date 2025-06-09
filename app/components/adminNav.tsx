@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { GiLaurelCrown } from "react-icons/gi";
 
 export default function AdminNav() {
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 10);
-    }
+    // Only attach scroll listener on home page
+    if (location.pathname === "/") {
+      function handleScroll() {
+        setScrolled(window.scrollY > 10);
+      }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      window.addEventListener("scroll", handleScroll);
+
+      // Check scroll on mount in case page loads scrolled
+      handleScroll();
+
+      return () => window.removeEventListener("scroll", handleScroll);
+    } else {
+      // For other pages, always show scrolled style
+      setScrolled(true);
+    }
+  }, [location.pathname]);
 
   return (
     <header

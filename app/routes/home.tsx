@@ -149,7 +149,6 @@ export default function Home() {
         </div>
       </section>
       <section className="grid grid-cols-3 grid-rows-2 h-[600px]">
-        {/* Block with hover effect */}
         <div className="h-full relative group">
           <img
             src={Service}
@@ -157,7 +156,7 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            Services
+            <p>SERVICES</p> 
           </div>
         </div>
 
@@ -168,7 +167,7 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            Events
+            <p>EVENTS</p> 
           </div>
         </div>
 
@@ -179,7 +178,7 @@ export default function Home() {
         <div className="h-full relative group">
           <img src={Rest} alt="Rest" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            Rest
+            <p>REST</p> 
           </div>
         </div>
 
@@ -190,7 +189,7 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            About
+            <p>ABOUT</p> 
           </div>
         </div>
       </section>
