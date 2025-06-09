@@ -18,7 +18,7 @@ export default function AdminNav() {
     <header
       className={`sticky top-0 w-full z-50 transition-colors duration-600 flex justify-between items-center p-6 pr-8 mx-auto ${
         scrolled
-          ? "bg-[#22392c]"
+          ? "bg-[#22392c] text-[#f4ebdf]"
           : "bg-transparent text-[#22392c]"
       }`}
     >
@@ -32,7 +32,7 @@ export default function AdminNav() {
         </NavLink>
       </figure>
 
-      <nav className="flex gap-6 items-center text-[#f4ebdf]">
+      <nav className="flex gap-6 items-center text-[#f4ebdf] text-lg">
         <NavLink to="/profile">Profile</NavLink>
         <NavLink to="/dashboard">Dashboard</NavLink>
       </nav>

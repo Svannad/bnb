@@ -15,6 +15,7 @@ import { sessionStorage } from "~/services/session.server";
 import AdminNav from "./components/adminNav";
 import User from "./models/User";
 import DefaultNav from "./components/defaultNav";
+import Footer from "./components/footer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -72,6 +73,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
       {role === "host" && <AdminNav />}
       {role === null && <DefaultNav />}
       <Outlet />
+      <Footer/>
     </div>
   );
 }

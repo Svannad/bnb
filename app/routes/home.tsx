@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import type { Route } from "./+types/home";
 import { Link, useNavigate } from "react-router";
 import { redirect, useLoaderData, type LoaderFunctionArgs } from "react-router";
@@ -10,6 +10,12 @@ import Service from "~/assest/service.jpg";
 import Events from "~/assest/events.jpg";
 import Rest from "~/assest/rest.jpg";
 import Detail from "~/assest/detail.jpg";
+import TextField from "@mui/material/TextField";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import type { Dayjs } from "dayjs";
+import { da } from "date-fns/locale";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await sessionStorage.getSession(
@@ -33,9 +39,11 @@ type Booking = {
 };
 
 export default function Home() {
+  const [value, setValue] = React.useState<Dayjs | null>(null);
   const today = new Date().toISOString().split("T")[0];
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
   const [notAvailable, setNotAvailable] = useState(false);
   const navigate = useNavigate();
 
@@ -48,14 +56,11 @@ export default function Home() {
   function checkAvailability() {
     if (!startDate || !endDate) return;
 
-    const requestedStart = new Date(startDate);
-    const requestedEnd = new Date(endDate);
-
     const overlaps = (ranges: { startDate: string; endDate: string }[]) =>
-      ranges.some(({ startDate, endDate }) => {
-        const rangeStart = new Date(startDate);
-        const rangeEnd = new Date(endDate);
-        return requestedStart <= rangeEnd && rangeStart <= requestedEnd;
+      ranges.some(({ startDate: s, endDate: e }) => {
+        const rangeStart = new Date(s);
+        const rangeEnd = new Date(e);
+        return startDate <= rangeEnd && rangeStart <= endDate;
       });
 
     const bookingOverlap = overlaps(bookings);
@@ -68,7 +73,9 @@ export default function Home() {
       if (!authUserId) {
         navigate("/signin");
       } else {
-        navigate(`/booking?start=${startDate}&end=${endDate}`);
+        navigate(
+          `/booking?start=${startDate.toISOString()}&end=${endDate.toISOString()}`
+        );
       }
     }
   }
@@ -81,74 +88,113 @@ export default function Home() {
           alt="Hero background"
           className="absolute inset-0 w-full h-[100vh] object-cover z-0"
         />
-        <div className="relative z-20 bg-[#f4ebdf] p-6 text-[#22392c] max-w-md w-full flex flex-col items-center justify-center gap-8">
+        <div className="absolute bottom-45 left-17 text-[#f4ebdf] ">
+          <h1 className="text-5xl">Lorem, ipsum.</h1>
+          <p className="text-2xl">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa,
+            nostrum.
+          </p>
+        </div>
+        <div className="relative z-20 bg-[#f4ebdf] p-6 text-[#22392c] max-w-sm w-full flex flex-col items-center justify-between h-100">
+          <h2 className="text-xl">Lorem ipsum</h2>
+          <p className="text-center text-[#758d7e] mt-[-30px]">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          </p>
           <div className="flex flex-col items-center justify-center gap-4">
-            <label htmlFor="start">
-              Ankommer
-              <input
-                type="date"
-                name="start"
-                min={today}
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="block w-full p-2 rounded border mt-1"
-              />
-            </label>
-            <label htmlFor="end">
-              Afrejse
-              <input
-                type="date"
-                name="end"
-                min={startDate || today}
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="block w-full p-2 rounded border mt-1"
-              />
-            </label>
+            <LocalizationProvider
+              dateAdapter={AdapterDateFns}
+              adapterLocale={da}
+            >
+              <div className="flex flex-col gap-4 w-full">
+                <DatePicker
+                  label="Ankommer"
+                  value={startDate}
+                  onChange={(newValue) => setStartDate(newValue)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                <DatePicker
+                  label="Afrejse"
+                  value={endDate}
+                  minDate={startDate || new Date()}
+                  onChange={(newValue) => setEndDate(newValue)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </div>
+            </LocalizationProvider>
           </div>
-          <button
-            onClick={checkAvailability}
-            className="px-4 py-2 bg-[#22392c] text-[#f4ebdf]  hover:bg-[#1a2e25] w-full"
-          >
-            Check Dates
-          </button>
-
           {notAvailable && (
-            <div className="text-red-600 font-bold">
+            <div className="text-red-800 text-sm mb-[-20px]">
               Sorry, the selected dates are not available.
             </div>
           )}
+          <button
+            onClick={checkAvailability}
+            className="px-4 py-2 bg-[#22392c] text-[#f4ebdf]  hover:bg-[#1a2e25] w-62"
+          >
+            Check Dates
+          </button>
+        </div>
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          <a href="#next-section" className="flex flex-col items-center group">
+            <svg
+              className="w-20 h-20 text-[#f4ebdf] group-hover:text-[#758d7e] transition"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              viewBox="0 0 24 24"
+            >
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
         </div>
       </section>
       <section className="grid grid-cols-3 grid-rows-2 h-[600px]">
-        <div className="h-full">
+        {/* Block with hover effect */}
+        <div className="h-full relative group">
           <img
             src={Service}
             alt="Service"
             className="w-full h-full object-cover"
           />
+          <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
+            Services
+          </div>
         </div>
-        <div className="h-full">
+
+        <div className="h-full relative group">
           <img
             src={Events}
             alt="Events"
             className="w-full h-full object-cover"
           />
+          <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
+            Events
+          </div>
         </div>
+
         <div className="row-span-2 bg-[#22392c] text-white flex items-center justify-center text-2xl font-semibold h-full">
           Your Text or Content Here
         </div>
-        <div className="h-full">
+
+        <div className="h-full relative group">
           <img src={Rest} alt="Rest" className="w-full h-full object-cover" />
+          <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
+            Rest
+          </div>
         </div>
-        <div className="h-full">
+
+        <div className="h-full relative group">
           <img
             src={Detail}
             alt="Detail"
             className="w-full h-full object-cover"
           />
+          <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
+            About
+          </div>
         </div>
       </section>
+
       <section className="py-12 px-20 min-h-[80vh] flex flex-col justify-center items-start">
         <h1 className="font-serif text-4xl text-[#22392c]">
           Lorem ipsum dolor sit amet.

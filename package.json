@@ -9,10 +9,15 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.1.1",
+    "@mui/x-date-pickers": "^8.5.1",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "bcryptjs": "^3.0.2",
     "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
     "express": "^5.1.0",
     "isbot": "^5.1.27",
     "mongoose": "^8.14.1",
