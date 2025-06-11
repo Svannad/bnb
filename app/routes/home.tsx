@@ -106,13 +106,13 @@ export default function Home() {
             >
               <div className="flex flex-col gap-4 w-full">
                 <DatePicker
-                  label="Ankommer"
+                  label="Check In"
                   value={startDate}
                   onChange={(newValue) => setStartDate(newValue)}
                   renderInput={(params) => <TextField {...params} />}
                 />
                 <DatePicker
-                  label="Afrejse"
+                  label="Check Out"
                   value={endDate}
                   minDate={startDate || new Date()}
                   onChange={(newValue) => setEndDate(newValue)}

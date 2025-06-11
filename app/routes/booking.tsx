@@ -62,6 +62,7 @@ export async function action({ request }: LoaderFunctionArgs) {
   const end = formData.get("end");
   const selectedPackage = formData.get("package");
   const acceptTerms = formData.get("acceptTerms");
+  const notes = formData.get("notes");
 
   const session = await getSession(request.headers.get("cookie"));
   const authUserId = session.get("authUserId");
@@ -99,6 +100,7 @@ export async function action({ request }: LoaderFunctionArgs) {
       startDate: start,
       endDate: end,
       package: selectedPackage,
+      notes: typeof notes === "string" ? notes : undefined,
     });
 
     return redirect(`/confirm?bookingId=${booking._id.toString()}`);
@@ -172,20 +174,20 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
             >
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <TextField
-                  label="Gæst"
+                  label="Guest"
                   value={user?.name ?? ""}
                   fullWidth
                   variant="outlined"
                 />
                 <DateField
-                  label="Ankomst"
+                  label="Check In"
                   format="dd/MM/yyyy"
                   value={start ? new Date(start) : null}
                   readOnly
                   fullWidth
                 />
                 <DateField
-                  label="Afrejse"
+                  label="Check Out"
                   format="dd/MM/yyyy"
                   value={end ? new Date(end) : null}
                   readOnly
@@ -268,6 +270,17 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
                   <input type="hidden" name="plateNumber" value="No car" />
                 )}
               </div>
+            </div>
+            <div className="border border-[#d6c9b3] p-6 bg-[#fffbee]">
+              <label className="block text-sm font-medium text-[#48302D] mb-2">
+                <h3 className="text-xl">Notes or special requests</h3>
+              </label>
+              <textarea
+                name="notes"
+                rows={4}
+                className="w-full px-3 py-2 border border-[#ccc] rounded-md text-[#22392c]"
+                placeholder="Add any notes here..."
+              ></textarea>
             </div>
           </Form>
         </section>

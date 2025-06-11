@@ -11,6 +11,7 @@ const bookingSchema = new Schema(
       enum: ["bed+room", "maddress+room", "maddress"],
       required: true,
     },
+    notes: { type: String, required: false },
   },
   {
     timestamps: true,
@@ -24,6 +25,7 @@ export interface BookingType extends Document {
   endDate: String;
   plateNumber?: string;
   package: "bed+room" | "maddress+room" | "maddress";
+  notes?: string;
 }
 
 const Booking = model<BookingType>("Booking", bookingSchema);
