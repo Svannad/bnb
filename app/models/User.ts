@@ -11,6 +11,9 @@ const userSchema = new Schema(
       name: {
         type: String
       },
+      phone: {
+        type: String
+      },
       password: {
         type: String,
         required: true,
@@ -30,6 +33,7 @@ const userSchema = new Schema(
   export interface UserType extends Document {
     mail: string;
     name?: string;
+    phone?: string;
     password: string;
     role: "host" | "guest";
   }

@@ -22,11 +22,12 @@ export async function loader({ request }: { request: Request }) {
 export default function ProfileEdit({
   loaderData,
 }: {
-  loaderData: { user: { name: string; mail: string } };
+  loaderData: { user: { name: string; mail: string, phone:string; } };
 }) {
   const { user } = loaderData;
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.mail);
+  const [phone, setPhone] = useState(user.phone);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -72,6 +73,24 @@ export default function ProfileEdit({
                 defaultValue={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email..."
+                 className="mt-1 block w-full px-3 py-2 border border-[#48302D] rounded-md mb-6 text-[#48302D]"
+              />
+            </div>
+
+            <div className="flex justify-between items-start flex-col w-full">
+              <label
+                htmlFor="phone"
+                className="block text-sm text-[#48302D]"
+              >
+                phone
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="text"
+                defaultValue={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter your phone number..."
                  className="mt-1 block w-full px-3 py-2 border border-[#48302D] rounded-md mb-6 text-[#48302D]"
               />
             </div>
@@ -137,6 +156,7 @@ export async function action({ request }: { request: Request }) {
   await User.findByIdAndUpdate(authUserId, {
     name: formData.get("name"),
     mail: formData.get("mail"),
+    phone: formData.get("phone"),
     password: hashedPassword,
   });
 
