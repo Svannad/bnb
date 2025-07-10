@@ -89,7 +89,7 @@ export default function Home() {
           className="absolute inset-0 w-full h-[100vh] object-cover z-0"
         />
         <div className="absolute bottom-30 left-17 text-[#f4ebdf] ">
-          <h1 className="text-6xl">Jonas' Bed n Breafast</h1>
+          <h1 className="text-6xl">Jonas' Bed n' Breakfast</h1>
           <p className="text-3xl">
             Et lille stykke Sydfyn i det jyske
           </p>
