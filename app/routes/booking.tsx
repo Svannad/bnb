@@ -1,6 +1,7 @@
 import {
   data,
   Form,
+  Link,
   redirect,
   useLoaderData,
   useNavigate,
@@ -153,7 +154,7 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
           </Parallax>
         </ParallaxProvider>
         <div className="bg-[rgb(244,235,223,0.7)] absolute z-20 bottom-0 left-10 w-90 h-50 p-8 flex flex-col gap-4">
-          <h3 className="text-3xl text-[#22392c]"> Jonas' Bed n' Breakfast</h3>
+          <h3 className="text-3xl text-[#22392c]"> Jonas' Bed & Breakfast</h3>
           <p className="text-xl text-[#22392c] flex items-center gap-4">
             <PiHouseLineDuotone />
             Adresse
@@ -307,7 +308,9 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
             <div className="mt-6">
               <label className="flex items-center gap-2 text-[#22392c]">
                 <input type="checkbox" name="acceptTerms" form="bookingForm" />I
-                accept the terms and conditions
+                accept the 
+                <Link to="/terms" className="ml-[-5px] underline hover:text-[#758d7e]">terms and conditions</Link>
+                
               </label>
               {errors.acceptTerms && (
                 <p className="text-sm text-red-800 mt-1">

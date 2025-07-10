@@ -44,7 +44,7 @@ export default function DefaultNav() {
       </figure>
 
       <nav className="flex gap-6 items-center text-[#f4ebdf] text-lg font-light">
-        <NavLink to="#" className="hover:text-[#758d7e]">
+        <NavLink to="/services" className="hover:text-[#758d7e]">
           Services
         </NavLink>
         <NavLink to="#" className="hover:text-[#758d7e]">

@@ -29,7 +29,7 @@ export default function SignIn() {
   return (
     <div className="flex min-h-screen">
       {/* Left - Form Section */}
-      <div className="w-full md:w-1/2 bg-white flex flex-col justify-center px-10 pb-20">
+      <div className="w-full md:w-1/2 bg-[#fffbee] flex flex-col justify-center px-10 pb-20">
         <h1 className="text-4xl font-serif text-[#22392c] mb-4">
           Welcome Back!
         </h1>

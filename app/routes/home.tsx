@@ -9,7 +9,7 @@ import Hero from "~/assest/room.jpg";
 import Service from "~/assest/service.jpg";
 import Events from "~/assest/odense-classic.png";
 import Rest from "~/assest/rest.jpg";
-import Detail from "~/assest/detail.jpg";
+import Detail from "~/assest/jonas2.jpeg";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -89,15 +89,13 @@ export default function Home() {
           className="absolute inset-0 w-full h-[100vh] object-cover z-0"
         />
         <div className="absolute bottom-30 left-17 text-[#f4ebdf] ">
-          <h1 className="text-6xl">Jonas' Bed n' Breakfast</h1>
-          <p className="text-3xl">
-            Et lille stykke Sydfyn i det jyske
-          </p>
+          <h1 className="text-6xl">Jonas' Bed & Breakfast</h1>
+          <p className="text-3xl">Et lille stykke Sydfyn i det jyske</p>
         </div>
         <div className="relative z-20 bg-[#f4ebdf] p-6 text-[#22392c] max-w-sm w-full flex flex-col items-center justify-between h-100">
-          <h2 className="text-xl">Lorem ipsum</h2>
+          <h2 className="text-xl">Book Your Room</h2>
           <p className="text-center text-[#758d7e] mt-[-30px]">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Book your adventure now and make every stay a story worth telling.
           </p>
           <div className="flex flex-col items-center justify-center gap-4">
             <LocalizationProvider
@@ -154,19 +152,22 @@ export default function Home() {
             alt="Service"
             className="w-full h-full object-cover"
           />
-          <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            <p>SERVICES</p> 
-          </div>
+          <Link
+            to="/services"
+            className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center"
+          >
+            <p>SERVICES</p>
+          </Link>
         </div>
 
         <div className="h-full relative group">
           <img
             src={Events}
             alt="Events"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover  object-[center_75%]"
           />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            <p>EVENTS</p> 
+            <p>EVENTS</p>
           </div>
         </div>
 
@@ -177,7 +178,7 @@ export default function Home() {
         <div className="h-full relative group">
           <img src={Rest} alt="Rest" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            <p>REST</p> 
+            <p>REST</p>
           </div>
         </div>
 
@@ -185,50 +186,66 @@ export default function Home() {
           <img
             src={Detail}
             alt="Detail"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-[center_40%]"
           />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            <p>ABOUT</p> 
+            <p>ABOUT YOUR HOST</p>
           </div>
         </div>
       </section>
 
-      <section className="py-12 px-20 min-h-[80vh] flex flex-col justify-center items-start">
+      <section className="py-12 px-30 min-h-[80vh] flex flex-col justify-center items-start">
         <h1 className="font-serif text-4xl text-[#22392c]">
-          Lorem ipsum dolor sit amet.
+          The Story Behind Jonas’ Bed & Breakfast
         </h1>
         <br />
+        <em className=" text-[#22392c]">A Love Letter to Home</em>
+        <br />
         <p className=" text-[#22392c]">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore,
-          fugit, provident ut totam, commodi modi perspiciatis eligendi nam
-          ratione reiciendis illo quo dolorem eos obcaecati laborum ullam sunt
-          nesciunt velit eaque similique id dicta vel eius cum. Quod assumenda
-          officia velit. Voluptate laboriosam facilis provident delectus labore
-          facere non praesentium amet mollitia commodi doloribus suscipit ullam
-          fugiat, hic dolorum, obcaecati rerum maiores totam accusantium animi,
-          at aspernatur officia fugit doloremque? Modi eos deleniti magnam
-          consectetur corporis commodi perspiciatis eaque consequatur!
+          Far to the south, where the waves of the South Fyn Archipelago brush
+          the shoreline like secret lovers in the night, a young man named Jonas
+          grew up. With the scent of saltwater in his nose and birdsong etched
+          into his childhood heart, he learned early on that beauty lives in
+          simplicity: in the quiet moments around a well-set breakfast table, in
+          the hush between the hills, in the ancient art of hospitality.
         </p>
         <br />
         <p className=" text-[#22392c]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque itaque
-          laboriosam vitae fugiat architecto eos perspiciatis voluptates quia
-          minima sit id praesentium possimus explicabo reprehenderit et, numquam
-          aut. Debitis quia quo ullam soluta quaerat. Vitae ducimus quia
-          accusantium neque, id dolor quam possimus dolorum minus. Ipsa amet
-          error sequi quisquam.
+          Jonas carried a great dream—a fervent longing to heal, to understand,
+          and to learn. With books beneath his arm and hope in his chest, he
+          turned his gaze toward the horizon and left his soft, green homeland
+          to seek knowledge in the heart of Jutland. There, in a city where the
+          traffic lights never sleep and the bricks whisper a thousand stories,
+          he began his journey into the mysteries of medicine.
         </p>
         <br />
         <p className=" text-[#22392c]">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore,
-          fugit, provident ut totam, commodi modi perspiciatis eligendi nam
-          ratione reiciendis illo quo dolorem eos obcaecati laborum ullam sunt
-          nesciunt velit eaque similique id dicta vel eius cum. Quod assumenda
-          officia velit. Voluptate laboriosam facilis provident delectus labore
-          facere non praesentium amet mollitia commodi doloribus suscipit ullam
-          fugiat, hic dolorum, obcaecati rerum maiores totam accusantium animi,
-          at aspernatur officia fugit doloremque? Modi eos deleniti magnam
-          consectetur corporis commodi perspiciatis eaque consequatur!
+          And yet, amidst lectures, long nights, and endless pages of anatomy,
+          something began to stir within him—a quiet yearning for home. A
+          whisper from the south—perhaps the wind across the fjord, perhaps the
+          sound of a porcelain cup meeting its saucer in just the way he
+          remembered. And so Jonas, who had long since tucked away his
+          grandmother’s recipe book like a sacred talisman, began to create a
+          place where memory might take root.
+        </p>
+        <br />
+        <p className=" text-[#22392c]">
+          Jonas’ Bed & Breakfast was not born merely as a resting place for
+          weary travelers, but as a living, breathing heart in the chest of the
+          city—a gentle haven where the scent of freshly baked carrot buns
+          mingles with downy duvets and stories from another world. Every
+          detail, from the carefully chosen furnishings to the hand-stirred jam,
+          is a quiet homage to Southern Fyn: to the scent of wild roses, the
+          warmth of the country kitchen, the human longing for belonging.
+        </p>
+        <br />
+        <p className=" text-[#22392c]">
+          Thus, a chapter was written—not in a medical journal, but in the warm
+          book co-authored by homesickness and hospitality. A place where one
+          does not merely sleep, but continues to dream. A place where the night
+          may bring chicken nuggets and the morning a hint of mayonnaise, and
+          where—at the heart of Jutland—you might just feel the wind of Southern
+          Fyn upon your cheek.
         </p>
       </section>
     </>
