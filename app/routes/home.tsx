@@ -7,7 +7,7 @@ import { sessionStorage } from "~/services/session.server";
 import Unavailable from "~/models/Unavailable";
 import Hero from "~/assest/room.jpg";
 import Service from "~/assest/service.jpg";
-import Events from "~/assest/events.jpg";
+import Events from "~/assest/odense-classic.png";
 import Rest from "~/assest/rest.jpg";
 import Detail from "~/assest/detail.jpg";
 import TextField from "@mui/material/TextField";

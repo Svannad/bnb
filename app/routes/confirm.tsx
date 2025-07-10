@@ -63,7 +63,7 @@ export default function Confirm() {
           </Parallax>
         </ParallaxProvider>
         <div className="bg-[rgb(244,235,223,0.7)] absolute z-20 bottom-0 left-10 w-90 h-50 p-8 flex flex-col gap-4">
-          <h3 className="text-3xl text-[#22392c]"> Jonas's Bed n' Breakfast</h3>
+          <h3 className="text-3xl text-[#22392c]"> Jonas' Bed n' Breakfast</h3>
           <p className="text-xl text-[#22392c] flex items-center gap-4">
             <PiHouseLineDuotone />
             Adresse
@@ -86,7 +86,7 @@ export default function Confirm() {
             </p>
           </div>
         </div>
-        <div className="border border-[#d6c9b3] p-6 bg-[#fffbee]">
+        <div className="border border-[#d6c9b3] p-6 bg-[#fffbee] text-[#48302D]">
           <div className="space-y-3">
             <p>
               <strong>Dates:</strong>{" "}

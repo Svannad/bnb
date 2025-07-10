@@ -2,11 +2,11 @@ import { data, Form, Link, redirect, useActionData } from "react-router";
 import type { Route } from "../+types/root";
 import User from "~/models/User";
 import { useEffect } from "react";
+import Vilhelm from "~/assest/vilhelm.jpg";
 
 export async function action({ request }: Route.ActionArgs) {
   try {
     const formData = await request.formData();
-
     const name = formData.get("name");
     const mail = formData.get("mail");
     const password = formData.get("password");
@@ -28,9 +28,7 @@ export async function action({ request }: Route.ActionArgs) {
       return data({ error: "Passwords do not match" }, { status: 400 });
     }
 
-    const newUser = { name, mail, password };
-    await User.create(newUser);
-
+    await User.create({ name, mail, password });
     return redirect("/signin?success=true");
   } catch (error) {
     if (error instanceof Error) {
@@ -44,70 +42,105 @@ export default function SignUp() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const success = params.get("success");
-    if (success === "true") {
+    if (params.get("success") === "true") {
       alert("Registration successful! You can now log in.");
     }
   }, []);
 
   return (
-    <div id="sign-in-page" className="page">
-      <h1>Sign Up</h1>
-      <Form id="sign-in-form" method="post">
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          placeholder="Type your name..."
-          required
-        />
+    <div className="flex min-h-screen">
+      {/* Left - Form Section */}
+      <div className="w-full md:w-1/2 bg-white flex flex-col justify-center px-10 pb-20">
+        <h1 className="text-4xl font-serif text-[#22392c] mb-4">
+          Create Account
+        </h1>
+        <p className="text-[#7c6f67] mb-8">Sign up to get started</p>
 
-        <label htmlFor="mail">Mail</label>
-        <input
-          id="mail"
-          type="email"
-          name="mail"
-          placeholder="Type your mail..."
-          required
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          placeholder="Type your password..."
-          autoComplete="new-password"
-          required
-        />
-
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          id="confirmPassword"
-          type="password"
-          name="confirmPassword"
-          placeholder="Repeat your password..."
-          autoComplete="new-password"
-          required
-        />
-
-        <div className="btns">
-          <button>Sign Up</button>
-        </div>
-
-        {actionData?.error && (
-          <div className="mt-4 text-red-800 text-left">
-            <p>{actionData.error}</p>
+        <Form method="post" className="space-y-6">
+          <div>
+            <label htmlFor="name" className="block text-[#48302D] mb-1">
+              Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              placeholder="Your full name"
+              className="w-full border border-[#d6c9b3] rounded-md p-3 text-[#22392c] bg-[#fffbee] placeholder:text-[#a3988e]"
+            />
           </div>
-        )}
-      </Form>
 
-      <div className="flex flex-row text-[#48302D]">
-        <p className="mr-1">Already have a user?</p>
-        <Link to="/signin" className="hover:text-green-700">
-          Log in here.
-        </Link>
+          <div>
+            <label htmlFor="mail" className="block text-[#48302D] mb-1">
+              Email
+            </label>
+            <input
+              id="mail"
+              name="mail"
+              type="email"
+              required
+              placeholder="you@example.com"
+              className="w-full border border-[#d6c9b3] rounded-md p-3 text-[#22392c] bg-[#fffbee] placeholder:text-[#a3988e]"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-[#48302D] mb-1">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              placeholder="••••••••"
+              className="w-full border border-[#d6c9b3] rounded-md p-3 text-[#22392c] bg-[#fffbee] placeholder:text-[#a3988e]"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="block text-[#48302D] mb-1"
+            >
+              Confirm Password
+            </label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              autoComplete="new-password"
+              placeholder="Repeat your password"
+              className="w-full border border-[#d6c9b3] rounded-md p-3 text-[#22392c] bg-[#fffbee] placeholder:text-[#a3988e]"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-[#22392c] text-[#fffbee] py-3 rounded-md hover:bg-[#1a2d22] transition"
+          >
+            Sign Up
+          </button>
+
+          {actionData?.error && (
+            <p className="text-red-800 text-sm pt-2">{actionData.error}</p>
+          )}
+        </Form>
+
+        <p className="mt-6 text-sm text-[#48302D]">
+          Already have a user?{" "}
+          <Link to="/signin" className="underline hover:text-[#3a5f4c]">
+            Log in here.
+          </Link>
+        </p>
+      </div>
+
+      {/* Right - Image Section */}
+      <div className="hidden md:block w-1/2 ">
+        <img src={Vilhelm} className="h-[100vh] object-cover object-left" />
       </div>
     </div>
   );

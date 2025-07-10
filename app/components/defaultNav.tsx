@@ -44,6 +44,18 @@ export default function DefaultNav() {
       </figure>
 
       <nav className="flex gap-6 items-center text-[#f4ebdf] text-lg font-light">
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          Services
+        </NavLink>
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          Events
+        </NavLink>
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          Rest
+        </NavLink>
+        <NavLink to="#" className="hover:text-[#758d7e]">
+          About
+        </NavLink>
         <NavLink to="/signin" className="hover:text-[#758d7e]">
           Sign In
         </NavLink>

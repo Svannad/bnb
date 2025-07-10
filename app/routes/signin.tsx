@@ -1,7 +1,8 @@
 import { data, Form, Link, redirect, useActionData } from "react-router";
 import { authenticator } from "~/services/auth.server";
 import type { Route } from "../+types/root";
-import { commitSession, getSession } from "~/services/session.server"; // adjust path to your file
+import { commitSession, getSession } from "~/services/session.server";
+import Vilhelm from "~/assest/vilhelm.jpg"
 
 export async function action({ request }: Route.ActionArgs) {
   try {
@@ -23,45 +24,73 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function SignIn() {
-      const actionData = useActionData<{ error?: string }>();
-  return (
-    <div id="sign-in-page" className="page">
-      <h1>Sign In</h1>
-      <Form id="sign-in-form" method="post">
-        <label htmlFor="mail">Mail</label>
-        <input
-          id="mail"
-          type="email"
-          name="mail"
-          aria-label="mail"
-          placeholder="Type your mail..."
-          required
-        />
+  const actionData = useActionData<{ error?: string }>();
 
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          aria-label="password"
-          placeholder="Type your password..."
-          autoComplete="current-password"
-        />
-        <div className="btns">
-          <button>Sign In</button>
-        </div>
-        {actionData?.error && (
-          <div className="mt-4 text-red-800 text-left">
-            <p>{actionData.error}</p>
+  return (
+    <div className="flex min-h-screen">
+      {/* Left - Form Section */}
+      <div className="w-full md:w-1/2 bg-white flex flex-col justify-center px-10 pb-20">
+        <h1 className="text-4xl font-serif text-[#22392c] mb-4">
+          Welcome Back!
+        </h1>
+        <p className="text-[#7c6f67] mb-8">Sign in to your account</p>
+
+        <Form method="post" className="space-y-6">
+          <div>
+            <label htmlFor="mail" className="block text-[#48302D] mb-1">
+              Email
+            </label>
+            <input
+              id="mail"
+              type="email"
+              name="mail"
+              placeholder="you@example.com"
+              className="w-full border border-[#d6c9b3] rounded-md p-3 text-[#22392c] bg-[#fffbee] placeholder:text-[#a3988e]"
+              required
+            />
           </div>
-        )}
-      </Form>
-      <div className="flex flex-row text-[#48302D]">
-            <p className="mr-1">Don't have a user?</p>
-            <Link to="/signup" className="hover:text-green-700">
-              Sign up here.
-            </Link>
+
+          <div>
+            <label htmlFor="password" className="block text-[#48302D] mb-1">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              autoComplete="current-password"
+              className="w-full border border-[#d6c9b3] rounded-md p-3 text-[#22392c] bg-[#fffbee] placeholder:text-[#a3988e]"
+              required
+            />
           </div>
+
+          <button
+            type="submit"
+            className="w-full bg-[#22392c] text-[#fffbee] py-3 rounded-md hover:bg-[#1a2d22] transition"
+          >
+            Sign In
+          </button>
+
+          {actionData?.error && (
+            <p className="text-red-800 text-sm pt-2">{actionData.error}</p>
+          )}
+        </Form>
+
+        <p className="mt-6 text-sm text-[#48302D]">
+          Don’t have a user?{" "}
+          <Link to="/signup" className="underline hover:text-[#3a5f4c]">
+            Sign up here.
+          </Link>
+        </p>
+      </div>
+
+      {/* Right - Image Section */}
+      <div
+        className="hidden md:block w-1/2 "
+      >
+        <img src={Vilhelm} className="h-[100vh] object-cover object-left" />
+      </div>
     </div>
   );
 }
