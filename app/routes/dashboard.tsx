@@ -143,6 +143,9 @@ export default function Dashboard() {
           </ul>
         )}
       </section>
+      <Link to="/submit-book" className="text-3xl font-bold underline text-red-500 mb-6">
+        Guest Book Submit
+      </Link>
     </>
   );
 }

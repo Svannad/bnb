@@ -11,6 +11,7 @@ export default [
   route("booking", "routes/booking.tsx"),
   route("terms", "routes/terms.tsx"),
   route("services", "routes/services.tsx"),
+  route("submit-book", "routes/submitBook.tsx"),
   route("booking/:id/update", "routes/bookingEdit.tsx"),
   route("confirm", "routes/confirm.tsx"),
   route("profile", "routes/profile.tsx"),
