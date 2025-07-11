@@ -9,6 +9,8 @@ import { sessionStorage } from "~/services/session.server";
 import Booking from "~/models/Booking";
 import Room from "~/models/Room"; // <- import Room model
 import Unavailability from "~/models/Unavailable";
+import { QRCodeCanvas } from "qrcode.react";
+import { useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "BNB" }];
@@ -52,6 +54,10 @@ export default function Dashboard() {
     bookings: any[];
     unavailableDates: any[];
   };
+
+  const [showQR, setShowQR] = useState(false);
+
+  const guestbookURL = "https://bnb-sco8.onrender.com/submit-book";
 
   return (
     <>
@@ -143,9 +149,37 @@ export default function Dashboard() {
           </ul>
         )}
       </section>
-      <Link to="/submit-book" className="text-3xl font-bold underline text-red-500 mb-6">
+      <Link
+        to="/submit-book"
+        className="text-3xl font-bold underline text-red-500 mb-6"
+      >
         Guest Book Submit
       </Link>
+      <div className="text-center">
+        <button
+          onClick={() => setShowQR(true)}
+          className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800"
+        >
+          Show Guestbook QR Code
+        </button>
+
+        {showQR && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded shadow-lg flex flex-col items-center gap-4">
+              <h2 className="text-xl font-bold">
+                Scan to Sign the Guestbook 📖
+              </h2>
+              <QRCodeCanvas value={guestbookURL} size={200} />
+              <button
+                onClick={() => setShowQR(false)}
+                className="mt-4 bg-red-700 text-white px-3 py-1 rounded hover:bg-red-800"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }
