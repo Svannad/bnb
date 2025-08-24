@@ -47,13 +47,13 @@ export default function DefaultNav() {
         <NavLink to="/services" className="hover:text-[#758d7e]">
           Services
         </NavLink>
-        <NavLink to="#" className="hover:text-[#758d7e]">
+        <NavLink to="/events" className="hover:text-[#758d7e]">
           Events
         </NavLink>
         <NavLink to="#" className="hover:text-[#758d7e]">
           Rest
         </NavLink>
-        <NavLink to="#" className="hover:text-[#758d7e]">
+        <NavLink to="/about" className="hover:text-[#758d7e]">
           About
         </NavLink>
         <NavLink to="/signin" className="hover:text-[#758d7e]">

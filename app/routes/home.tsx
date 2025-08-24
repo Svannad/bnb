@@ -166,9 +166,11 @@ export default function Home() {
             alt="Events"
             className="w-full h-full object-cover  object-[center_75%]"
           />
+          <Link to="/events">
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
             <p>EVENTS</p>
           </div>
+          </Link>
         </div>
 
         <div className="row-span-2 bg-[#22392c] text-white flex items-center justify-center text-2xl font-semibold h-full">
@@ -188,9 +190,11 @@ export default function Home() {
             alt="Detail"
             className="w-full h-full object-cover object-[center_40%]"
           />
-          <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            <p>ABOUT YOUR HOST</p>
-          </div>
+          <Link to="/about">
+            <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
+              <p>ABOUT YOUR HOST</p>
+            </div>
+          </Link>
         </div>
       </section>
 
