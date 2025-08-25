@@ -157,11 +157,11 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
           <h3 className="text-3xl text-[#22392c]"> Jonas' Bed & Breakfast</h3>
           <p className="text-xl text-[#22392c] flex items-center gap-4">
             <PiHouseLineDuotone />
-            Adresse
+            Snogebæksvej 37, vær 5
           </p>
           <p className="text-xl text-[#22392c] flex items-center gap-4">
             <AiTwotoneMail />
-            Mail
+            h.r.dorm37@gmail.com
           </p>
         </div>
       </section>
@@ -227,7 +227,7 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
                   <h3 className="text-xl">Are you bringing a car?</h3>
                 </label>
                 <div className="flex gap-6 text-[#22392c]">
-                  <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2 text-[#22392c]">
                     <input
                       type="radio"
                       name="carOption"
@@ -237,7 +237,7 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
                     />
                     No
                   </label>
-                  <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2 text-[#22392c]">
                     <input
                       type="radio"
                       name="carOption"
@@ -288,7 +288,7 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
 
         <section className="p-6 w-[30%] border border-[#d6c9b3] bg-[#fffbee] m-8 h-97.5 flex flex-col justify-between items-start">
           <div className="text-black">
-            <h1 className="text-3xl">Basket</h1>
+            <h1 className="text-3xl">Your Booking</h1>
           </div>
 
           <div className="mt-4 space-y-2 text-[#22392c] w-full">
@@ -308,9 +308,13 @@ export default function BookingPage({ actionData }: { actionData?: any }) {
             <div className="mt-6">
               <label className="flex items-center gap-2 text-[#22392c]">
                 <input type="checkbox" name="acceptTerms" form="bookingForm" />I
-                accept the 
-                <Link to="/terms" className="ml-[-5px] underline hover:text-[#758d7e]">terms and conditions</Link>
-                
+                accept the
+                <Link
+                  to="/terms"
+                  className="ml-[-5px] underline hover:text-[#758d7e]"
+                >
+                  terms and conditions
+                </Link>
               </label>
               {errors.acceptTerms && (
                 <p className="text-sm text-red-800 mt-1">

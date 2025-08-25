@@ -75,9 +75,7 @@ export default function BookingEdit({ actionData }: Route.ComponentProps) {
     return `${y}-${m}-${dd}`;
   }
 
-  function overlaps(
-    ranges: { startDate: string; endDate: string }[]
-  ): boolean {
+  function overlaps(ranges: { startDate: string; endDate: string }[]): boolean {
     const rs = new Date(startDate);
     const re = new Date(endDate);
     return ranges.some(({ startDate, endDate }) => {
@@ -90,115 +88,142 @@ export default function BookingEdit({ actionData }: Route.ComponentProps) {
   const clientOverlap = overlaps(bookings) || overlaps(unavailables);
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline text-red-500">
-        Edit Booking
-      </h1>
-      <Form method="post" className="space-y-4 w-full">
-        <input
-          type="date"
-          name="start"
-          value={startDate}
-          min={getToday()}
-          onChange={(e) => {
-            const s = e.target.value;
-            setStartDate(s);
-            if (endDate < s) setEndDate(s);
-          }}
-        />
-        <input
-          type="date"
-          name="end"
-          value={endDate}
-          min={startDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
+    <div className="min-h-screen bg-[#f4f2f0] flex items-center justify-center px-4 py-10">
+      <div className="border border-[#d6c9b3] p-6 bg-[#fffbee] w-[90%] flex flex-col justify-center items-center">
+        <h1 className="text-2xl font-serif text-[#48302D] mb-6 text-center">
+          Edit Booking
+        </h1>
 
-        <div className="mb-4">
-          <label className="block text-sm text-[#48302D] mb-2">
-            Are you bringing a car?
-          </label>
-          <div className="flex gap-4">
-            <label>
-              <input
-                type="radio"
-                name="carOption"
-                value="no"
-                checked={bringingCar === "no"}
-                onChange={() => setBringingCar("no")}
-              />{" "}
-              No
+        <Form method="post" className="space-y-6 w-[60%]">
+          {/* Date pickers */}
+          <div>
+            <label className="block text-sm font-medium text-[#22392c] mb-2">
+              Check-in Date
             </label>
-            <label>
-              <input
-                type="radio"
-                name="carOption"
-                value="yes"
-                checked={bringingCar === "yes"}
-                onChange={() => setBringingCar("yes")}
-              />{" "}
-              Yes
-            </label>
-          </div>
-        </div>
-
-        {bringingCar === "yes" && (
-          <div className="flex flex-col w-full">
-            <label className="text-sm text-[#48302D]">Plate Number</label>
             <input
-              type="text"
-              name="plateNumber"
-              defaultValue={booking.plateNumber}
-              className={`mt-1 block w-full px-3 py-2 border rounded-md mb-6 text-[#48302D] ${
-                errors.plateNumber ? "border-red-500" : "border-[#48302D]"
-              }`}
+              type="date"
+              name="start"
+              value={startDate}
+              min={getToday()}
+              onChange={(e) => {
+                const s = e.target.value;
+                setStartDate(s);
+                if (endDate < s) setEndDate(s);
+              }}
+              className="w-full px-3 py-2 border border-[#ccc] rounded-md text-[#22392c]"
             />
-            {errors.plateNumber && (
-              <span className="text-sm text-red-500">
-                {errors.plateNumber.message}
-              </span>
-            )}
           </div>
-        )}
 
-        {errors.date && (
-          <div className="text-red-500 font-bold mb-4">{errors.date.message}</div>
-        )}
-        {clientOverlap && (
-          <div className="text-red-500 font-bold mb-4">
-            Sorry, the selected dates are not available.
+          <div>
+            <label className="block text-sm font-medium text-[#22392c] mb-2">
+              Check-out Date
+            </label>
+            <input
+              type="date"
+              name="end"
+              value={endDate}
+              min={startDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="w-full px-3 py-2 border border-[#ccc] rounded-md text-[#22392c]"
+            />
           </div>
-        )}
 
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-[#48302D] text-[#F4F2F0] rounded-md hover:opacity-80"
-          disabled={clientOverlap}
-        >
-          Update Booking
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="w-full py-2 px-4 border border-[#48302D] text-[#48302D] rounded-md hover:opacity-80"
-        >
-          Cancel
-        </button>
-      </Form>
+          {/* Car option */}
+          <div>
+            <label className="block text-sm font-medium text-[#22392c] mb-2">
+              Are you bringing a car?
+            </label>
+            <div className="flex gap-6">
+              <label className="flex items-center gap-2 text-[#22392c]">
+                <input
+                  type="radio"
+                  name="carOption"
+                  value="no"
+                  checked={bringingCar === "no"}
+                  onChange={() => setBringingCar("no")}
+                />
+                No
+              </label>
+              <label className="flex items-center gap-2 text-[#22392c]">
+                <input
+                  type="radio"
+                  name="carOption"
+                  value="yes"
+                  checked={bringingCar === "yes"}
+                  onChange={() => setBringingCar("yes")}
+                />
+                Yes
+              </label>
+            </div>
+          </div>
 
-      <Form method="post" className="mt-4">
-        <input type="hidden" name="_method" value="delete" />
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:opacity-80"
-          onClick={(e) => {
-            if (!confirm("Are you sure?")) e.preventDefault();
-          }}
-        >
-          Delete Booking
-        </button>
-      </Form>
-    </>
+          {/* Plate number */}
+          {bringingCar === "yes" && (
+            <div>
+              <label className="block text-sm font-medium text-[#22392c] mb-2">
+                Plate Number
+              </label>
+              <input
+                type="text"
+                name="plateNumber"
+                defaultValue={booking.plateNumber}
+                className="w-full px-3 py-2 border border-[#ccc] rounded-md text-[#22392c]"
+              />
+              {errors.plateNumber && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.plateNumber.message}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Errors */}
+          {errors.date && (
+            <div className="text-red-600 font-medium">
+              {errors.date.message}
+            </div>
+          )}
+          {clientOverlap && (
+            <div className="text-red-600 font-medium">
+              Sorry, the selected dates are not available.
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="space-y-3 flex flex-col ">
+            <button
+              type="submit"
+              className="px-4 py-2 bg-[#22392c] text-[#f4ebdf]  hover:bg-[#1a2e25]"
+              disabled={clientOverlap}
+            >
+              Update Booking
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="px-4 py-2  bg-[#f4ebdf]  border border-[#d6c9b3] text-[#22392c] hover:bg-[#efe6da]"
+            >
+              Cancel
+            </button>
+          </div>
+        </Form>
+
+        {/* Delete */}
+        <Form method="post" className="mt-6 flex flex-col w-[60%]">
+          <input type="hidden" name="_method" value="delete" />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-red-800 text-[#f4ebdf]  hover:bg-red-800/80"
+            onClick={(e) => {
+              if (!confirm("Are you sure you want to delete this booking?"))
+                e.preventDefault();
+            }}
+          >
+            Delete Booking
+          </button>
+        </Form>
+      </div>
+    </div>
   );
 }
 
@@ -243,7 +268,7 @@ export async function action({ request, params }: Route.ActionArgs) {
   const unavailables = await Unavailable.find({}).lean();
 
   const ranges = [...otherBookings, ...unavailables];
-  
+
   const sn = startDateISO;
   const en = endDateISO;
   const conflict = ranges.some((r) => {

@@ -5,10 +5,10 @@ export default function Footer() {
         <div className="w-full mx-auto gap-8 flex justify-between items-start px-16">
           <div className="flex flex-col items-start">
             <h2 className="text-2xl font-serif font-semibold tracking-wide">
-              Lorem, ipsum.
+              Jonas' Bed & Breakfast
             </h2>
             <p className="mt-2 text-sm text-[#d6c9b3]">
-              Lorem ipsum dolor sit amet consectetur.
+              Et lille stykke Sydfyn i det jyske.
             </p>
           </div>
           <div className="flex w-120 justify-between">
@@ -46,20 +46,18 @@ export default function Footer() {
               <ul className="space-y-2 text-sm text-[#d6c9b3]">
                 <li>
                   Email:{" "}
-                  <a href="mailto:info@bnb.com" className="hover:underline">
-                    info@mail.com
+                  <a href="mailto:h.r.dorm37@gmail.com" className="hover:underline">
+                    h.r.dorm37@gmail.com
                   </a>
                 </li>
-                <li>Phone: +45 12 34 56 78</li>
-                <li>Address: Envej 10, 8000 Aarhus, Denmark</li>
+                <li>Phone: +45 YOU-WISH-BRO</li>
+                <li>Address: Snogebæksvej 37, vær 5</li>
               </ul>
             </div>
           </div>
         </div>
-
         <div className="border-t border-[#3a5649] mt-12 pt-6 text-center text-sm text-[#d6c9b3]">
-          © {new Date().getFullYear()} Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. reserved.
+          © {new Date().getFullYear()} Jonas' Bed & Breakfast
         </div>
       </footer>
     </>

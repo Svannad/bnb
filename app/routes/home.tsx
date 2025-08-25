@@ -97,6 +97,9 @@ export default function Home() {
           <p className="text-center text-[#758d7e] mt-[-30px]">
             Book your adventure now and make every stay a story worth telling.
           </p>
+          <p className="text-center text-[#758d7e] mt-[-10px]">
+           Press the calender icon for easier date picking
+          </p>
           <div className="flex flex-col items-center justify-center gap-4">
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
