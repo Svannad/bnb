@@ -18,22 +18,22 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="/" className="text-[#d6c9b3] hover:underline">
+                  <a href="/about" className="text-[#d6c9b3] hover:underline">
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="/rooms" className="text-[#d6c9b3] hover:underline">
+                  <a href="/services" className="text-[#d6c9b3] hover:underline">
                     Services
                   </a>
                 </li>
                 <li>
-                  <a href="/about" className="text-[#d6c9b3] hover:underline">
+                  <a href="/events" className="text-[#d6c9b3] hover:underline">
                     Events
                   </a>
                 </li>
                 <li>
-                  <a href="/contact" className="text-[#d6c9b3] hover:underline">
+                  <a href="/guests" className="text-[#d6c9b3] hover:underline">
                     Rest
                   </a>
                 </li>
