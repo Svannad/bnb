@@ -50,8 +50,8 @@ export default function DefaultNav() {
         <NavLink to="/events" className="hover:text-[#758d7e]">
           Events
         </NavLink>
-        <NavLink to="#" className="hover:text-[#758d7e]">
-          Rest
+        <NavLink to="/guests" className="hover:text-[#758d7e]">
+          Guests
         </NavLink>
         <NavLink to="/about" className="hover:text-[#758d7e]">
           About

@@ -183,7 +183,7 @@ export default function Home() {
         <div className="h-full relative group">
           <img src={Rest} alt="Rest" className="w-full h-full object-cover" />
           <div className="absolute bottom-0 w-full bg-[rgb(26,46,37,0.7)] text-[#f4ebdf] text-center text-2xl transition-colors duration-300 group-hover:bg-[rgb(117,141,126,0.7)] h-16 flex items-center justify-center">
-            <p>REST</p>
+            <p>GUESTS</p>
           </div>
         </div>
 

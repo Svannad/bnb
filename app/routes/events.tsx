@@ -48,7 +48,7 @@ const attractions = [
   },
 ];
 
-export default function Services() {
+export default function Events() {
   return (
     <div className="flex min-h-screen">
       {/* Left image */}
