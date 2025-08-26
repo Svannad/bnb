@@ -23,7 +23,10 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="/services" className="text-[#d6c9b3] hover:underline">
+                  <a
+                    href="/services"
+                    className="text-[#d6c9b3] hover:underline"
+                  >
                     Services
                   </a>
                 </li>
@@ -46,7 +49,10 @@ export default function Footer() {
               <ul className="space-y-2 text-sm text-[#d6c9b3]">
                 <li>
                   Email:{" "}
-                  <a href="mailto:h.r.dorm37@gmail.com" className="hover:underline">
+                  <a
+                    href="mailto:h.r.dorm37@gmail.com"
+                    className="hover:underline"
+                  >
                     h.r.dorm37@gmail.com
                   </a>
                 </li>
