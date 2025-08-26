@@ -53,7 +53,7 @@ export default function AdminNav() {
           Events
         </NavLink>
         <NavLink to="/guests" className="hover:text-[#758d7e]">
-          Guests
+          GB
         </NavLink>
         <NavLink to="/about" className="hover:text-[#758d7e]">
           About

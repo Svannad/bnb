@@ -11,7 +11,7 @@ import {
 } from "react-router";
 import React, { useState } from "react";
 import Hero from "~/assest/guestbook.jpg";
-import { FaFeatherAlt, FaTrash } from "react-icons/fa";
+import { FaFeatherAlt, FaStar, FaTrash } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
 
 type Entry = {
@@ -59,7 +59,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
     authUserRole = currentUser?.role ?? null;
   }
 
-  return { entries, authUserId, authUserRole };
+  // Calculate average rating
+  const averageRating =
+    entries.length > 0
+      ? entries.reduce((sum, e) => sum + (e.rating || 0), 0) / entries.length
+      : 0;
+
+  return { entries, authUserId, authUserRole, averageRating };
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -159,15 +165,20 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function GuestBook() {
   // client-side UI
-  const { entries, authUserId, authUserRole } = useLoaderData() as {
-    entries: Entry[];
-    authUserId: string | null;
-    authUserRole: string | null;
-  };
+  const { entries, authUserId, authUserRole, averageRating } =
+    useLoaderData() as {
+      entries: Entry[];
+      authUserId: string | null;
+      authUserRole: string | null;
+      averageRating: number;
+    };
+
   const actionData = useActionData() as { error?: string } | undefined;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const [showForm, setShowForm] = useState(false);
+  const safeAverage =
+    averageRating && !isNaN(averageRating) ? averageRating : 0;
 
   return (
     <div className="flex flex-col items-center min-h-screen">
@@ -176,11 +187,30 @@ export default function GuestBook() {
           <img src={Hero} className="h-[100vh] object-cover object-center" />
         </div>
         <div className="w-full md:w-2/3 bg-[#fffbee] flex flex-col justify-start px-25 py-10 h-[100vh] overflow-y-auto">
-        <h1 className="text-4xl font-serif text-[#22392c] mb-8">
-          Guest Book
-        </h1>
-        <p className="text-left text-[#758d7e] mt-[-10px]">
-            See what makes a stay at Jonas’ Bed & Breakfast unforgettable <br /> straight from our guests.
+          <div className="flex items-end gap-3 mb-8">
+            <h1 className="text-4xl font-serif text-[#22392c]">Guest Book</h1>
+
+            {/* Average Rating */}
+            {safeAverage > 0 ? (
+              <span className="text-lg text-gray-500 font-medium flex items-center gap-1 mb-0.5">
+                {safeAverage.toFixed(1)}{" "}
+                <FaStar size={20} color="oklch(68.1% 0.162 75.834" className="mb-1.5" />
+              </span>
+            ) : (
+              <span className="text-lg text-gray-500 font-medium flex items-center gap-1 mb-0.5">
+                0.0{" "}
+                <FaStar
+                  size={20}
+                  color="oklch(68.1% 0.162 75.834"
+                  className="mb-1.5"
+                />
+              </span>
+            )}
+          </div>
+
+          <p className="text-left text-[#758d7e]">
+            See what makes a stay at Jonas’ Bed & Breakfast unforgettable <br />{" "}
+            straight from our guests.
           </p>
           {/* Entries */}
           {entries.length === 0 ? (
@@ -232,7 +262,7 @@ export default function GuestBook() {
                             to={`/guests/edit/${entry._id}`}
                             className=" text-[#22392c]"
                           >
-                            <RiPencilFill  size={20} />
+                            <RiPencilFill size={20} />
                           </Link>
                         )}
 
@@ -335,8 +365,8 @@ export default function GuestBook() {
         ) : (
           <div className="w-1/3 bg-white/80 backdrop-blur-sm  p-6 text-gray-700">
             <p>
-              You can read guestbook entries without an account. <br /> To add an entry
-              you must{" "}
+              You can read guestbook entries without an account. <br /> To add
+              an entry you must{" "}
               <Link to="/signin" className="underline text-[#22392c]">
                 sign in
               </Link>{" "}

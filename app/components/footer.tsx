@@ -6,7 +6,7 @@ export default function Footer() {
           <div className="flex flex-col items-start">
             <h2 className="text-2xl font-serif font-semibold tracking-wide">
               Jonas' Bed & Breakfast
-            </h2>
+            </h2> 
             <p className="mt-2 text-sm text-[#d6c9b3]">
               Et lille stykke Sydfyn i det jyske.
             </p>
@@ -37,7 +37,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a href="/guests" className="text-[#d6c9b3] hover:underline">
-                    Rest
+                    Guest Book
                   </a>
                 </li>
               </ul>
